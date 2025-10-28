@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.asem.grpc_service";
+option java_outer_classname = "SumProto";
+
+// Define the gRPC service
+service SumService {
+  rpc AddNumbers (AddRequest) returns (AddResponse);
+}
+
+// Request message with two numbers
+message AddRequest {
+  int32 firstNumber = 1;
+  int32 secondNumber = 2;
+}
+
+// Response message with the result
+message AddResponse {
+  int32 result = 1;
+}
