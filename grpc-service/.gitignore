@@ -1,0 +1,57 @@
+# Ignore built files and temporary outputs
+target/
+build/
+out/
+
+# Ignore IDE-specific files
+# === IntelliJ IDEA ===
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# === Eclipse / STS ===
+.classpath
+.project
+.settings/
+.apt_generated/
+.factorypath
+.springBeans
+.sts4-cache/
+
+# === NetBeans ===
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# === VS Code ===
+.vscode/
+
+# === Maven Wrapper JAR (you can keep scripts) ===
+.mvn/wrapper/maven-wrapper.jar
+
+# === Logs, temporary files, OS junk ===
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# === Ignore environment and config files (optional) ===
+.env
+application-*.yml
+application-*.properties
+*.local.yml
+*.local.properties
+
+# === Don’t ignore important source code ===
+!src/main/**/target/
+!src/test/**/target/
+!src/main/**/build/
+!src/test/**/build/
+
+# === HELP or documentation files (optional) ===
+HELP.md
