@@ -14,12 +14,29 @@ import org.springframework.retry.support.RetryTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
-
 @Configuration
 public class KafkaConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
+
+    @Value("${kafka.producer.retries}")
+    private int retries;
+
+    @Value("${kafka.producer.max-in-flight}")
+    private int maxInFlight;
+
+    @Value("${kafka.producer.delivery-timeout-ms}")
+    private int deliveryTimeout;
+
+    @Value("${retry.backoff.initial-interval}")
+    private long initialInterval;
+
+    @Value("${retry.backoff.multiplier}")
+    private double multiplier;
+
+    @Value("${retry.backoff.max-interval}")
+    private long maxInterval;
 
     @Bean
     public ProducerFactory<String, String> producerFactory() {
@@ -29,13 +46,13 @@ public class KafkaConfig {
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
         // Strong delivery guarantees
-        props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true); // idempotent producer
+        props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
         props.put(ProducerConfig.ACKS_CONFIG, "all");
-        props.put(ProducerConfig.RETRIES_CONFIG, 5);
-        props.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 5);
+        props.put(ProducerConfig.RETRIES_CONFIG, retries);
+        props.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, maxInFlight);
 
         // Additional tuning
-        props.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, 120000);
+        props.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, deliveryTimeout);
 
         return new DefaultKafkaProducerFactory<>(props);
     }
@@ -45,15 +62,15 @@ public class KafkaConfig {
         return new KafkaTemplate<>(producerFactory());
     }
 
-    // RetryTemplate for synchronous send retries at application level (exponential backoff)
+    // RetryTemplate with configurable exponential backoff
     @Bean
     public RetryTemplate retryTemplate() {
         RetryTemplate rt = new RetryTemplate();
 
         ExponentialBackOffPolicy backOff = new ExponentialBackOffPolicy();
-        backOff.setInitialInterval(500L);
-        backOff.setMultiplier(2.0);
-        backOff.setMaxInterval(5000L);
+        backOff.setInitialInterval(initialInterval);
+        backOff.setMultiplier(multiplier);
+        backOff.setMaxInterval(maxInterval);
 
         rt.setBackOffPolicy(backOff);
         return rt;
