@@ -46,6 +46,3 @@ Communication Flow :
 4- Observability: **Prometheus** and **Grafana** are integrated to provide complete observability for the system. Prometheus collects runtime metrics from Spring Boot services, and Grafana visualizes these metrics for real-time performance and health monitoring.
 
 5- Load Testing: **K6** used to evaluate the performance, scalability, and stability under high concurrency. It simulates multiple clients sending requests simultaneously to ensure the system can handle real-world traffic efficiently.
-```bash
-git clone [REPO_URL]
-cd distribu
