@@ -42,7 +42,7 @@ public class SumServiceImpl extends SumServiceGrpc.SumServiceImplBase {
         }
 
         String payload = String.format(
-                "{\"requestId\":\"%s\",\"a\":%d,\"b\":%d,\"result\":%d}",
+                "{\"requestId\":\"%s\",\"First Number\":%d,\"Second Number\":%d,\"Result\":%d}",
                 requestId, firstNumber, secondNumber, result
         );
 
