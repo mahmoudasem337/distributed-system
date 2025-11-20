@@ -6,7 +6,7 @@ This project is a robust, high-performance distributed system using a hybrid **g
 
 ## Architecture
 
-<img width="1287" height="741" alt="image" src="https://github.com/user-attachments/assets/f7c693ee-c3b6-4d34-9bb9-f55ae262cecd" />
+<img width="1302" height="733" alt="image" src="https://github.com/user-attachments/assets/a52e8adb-0a8c-44b5-8a3f-ad7835073bbd" />
 
 
 The application consists of two main services (Spring Boot):
