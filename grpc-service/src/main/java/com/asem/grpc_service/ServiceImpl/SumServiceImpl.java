@@ -41,9 +41,17 @@ public class SumServiceImpl extends SumServiceGrpc.SumServiceImplBase {
             return;
         }
 
+        long produceTimestamp = System.currentTimeMillis();
+
         String payload = String.format(
-                "{\"requestId\":\"%s\",\"First Number\":%d,\"Second Number\":%d,\"Result\":%d}",
-                requestId, firstNumber, secondNumber, result
+                "{" +
+                        "\"requestId\":\"%s\"," +
+                        "\"First Number\":%d," +
+                        "\"Second Number\":%d," +
+                        "\"Result\":%d," +
+                        "\"produceTimestamp\":%d" +
+                        "}",
+                requestId, firstNumber, secondNumber, result, produceTimestamp
         );
 
         try {
@@ -65,8 +73,9 @@ public class SumServiceImpl extends SumServiceGrpc.SumServiceImplBase {
         AddResponse response = AddResponse.newBuilder()
                 .setResult(result)
                 .build();
+
         processedRequests.put(requestId, response);
-        //System.out.println(" Cached requests: " + processedRequests);
+
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
