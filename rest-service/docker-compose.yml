@@ -38,15 +38,15 @@ services:
     ports:
       - "3000:3000"
   tempo:
-    image: grafana/tempo:2.4.2 # https://hub.docker.com/r/grafana/tempo/tags and https://github.com/grafana/tempo/releases
-    extra_hosts: ['host.docker.internal:host-gateway']
-    command: ['-config.file=/etc/tempo.yml']
+    image: grafana/tempo:2.4.2
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    command: [ '-config.file=/etc/tempo.yml' ]
     volumes:
       - tempo:/tmp/tempo
       - ./docker/grafana/tempo.yml:/etc/tempo.yml:ro
     ports:
-      - "3200:3200"    # tempo
-      - "4318:4318"  # otlp http
+      - "3200:3200"   # Tempo UI / querying
+      - "9411:9411"   # Zipkin ingestion
   loki:
     image: grafana/loki:3.1.2 # https://hub.docker.com/r/grafana/loki/tags and https://github.com/grafana/loki/releases
     extra_hosts: ['host.docker.internal:host-gateway']
