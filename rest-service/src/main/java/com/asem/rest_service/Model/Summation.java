@@ -1,5 +1,4 @@
 package com.asem.rest_service.Model;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Summation {
@@ -15,6 +14,9 @@ public class Summation {
 
         @JsonProperty("Result")
         private int result;
+
+        @JsonProperty("produceTimestamp")  // <-- must match JSON
+        private long produceTimestamp;
 
         public String getRequestId() {
                 return requestId;
@@ -47,5 +49,8 @@ public class Summation {
         public void setResult(int result) {
                 this.result = result;
         }
-}
 
+        public long getProduceTimestamp() {
+                return produceTimestamp;
+        }
+}

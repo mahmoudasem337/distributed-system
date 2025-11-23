@@ -1,15 +1,15 @@
 global:
-  scrape_interval: 1s
+  scrape_interval: 10s
   evaluation_interval: 1s
 
 scrape_configs:
-  # Scrape metrics from Prometheus itself
+  # Scrape metrics from Prometheus
   - job_name: 'prometheus'
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['localhost:9090']  # Prometheus container exposes itself on 9090
 
-  # Scrape metrics from your Spring Boot REST service
+  # Scrape metrics from the REST service
   - job_name: 'rest-service'
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['host.docker.internal:8080']
+      - targets: ['192.168.1.44:9093']  # Host IP + Spring Boot port
